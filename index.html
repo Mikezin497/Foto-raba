@@ -1,220 +1,165 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<title>Foto raba dinovo?</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Me Perdoa Por Favor</title>
 
-<style>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@400;700&display=swap');
 
-body{
-background:#cfe9ff;
-font-family:Arial, sans-serif;
-text-align:center;
-margin-top:120px;
-overflow:hidden;
-}
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ffe6f0, #f0e6ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      overflow: hidden;
+    }
 
-h1{
-font-size:42px;
-color:#cc041f;
-}
+    /* Envelope */
+    .envelope {
+      width: 340px;
+      height: 240px;
+      position: relative;
+      background: #ff4d94;
+      cursor: pointer;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+      perspective: 1200px;
+    }
 
-button{
-font-size:22px;
-padding:15px 35px;
-margin:10px;
-border:none;
-border-radius:12px;
-cursor:pointer;
-transition:0.3s;
-}
+    /* Aba do envelope */
+    .flap {
+      position: absolute;
+      width: 100%;
+      height: 120px;
+      background: #ff3385;
+      clip-path: polygon(50% 100%, 0 0, 100% 0);
 
-#sim{
-background:#156904;
-color:white;
-}
+      transform-origin: top;
+      transition: transform 0.8s ease;
+      z-index: 3;
 
-#nao{
-background:#ff0000;
-color:white;
-position:absolute;
-}
+      backface-visibility: hidden; /* evita bug visual */
+    }
 
-.frase{
-font-size:20px;
-color:#bd1c0a;
-margin-top:8px;
-}
+    /* Quando abre */
+    .envelope.open .flap {
+      transform: rotateX(-180deg);
+      z-index: 0; /* manda pra trás */
+    }
 
-/* corações */
+    /* Carta */
+    .letter {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%) translateY(100%) scale(0.9);
 
-.heart{
-position:fixed;
-bottom:-20px;
-animation:subir 6s linear infinite;
-opacity:0.8;
-}
+      width: 300px;
+      max-height: 420px;
+      background: #fffaf0;
+      border-radius: 12px;
+      padding: 25px;
 
-@keyframes subir{
-0%{transform:translateY(0);opacity:0.8;}
-100%{transform:translateY(-110vh);opacity:0;}
-}
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      opacity: 0;
+      transition: all 0.8s ease;
 
-/* anuncio */
+      overflow-y: auto;
+      z-index: 2;
+    }
 
-#anuncio{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.9);
-color:white;
-display:flex;
-justify-content:center;
-align-items:center;
-text-align:center;
-font-size:50px;
-padding:40px;
-z-index:999;
-display:none;
-animation:zoom 0.6s;
-}
+    /* Carta sobe */
+    .envelope.open .letter {
+      transform: translateX(-50%) translateY(-30px) scale(1);
+      opacity: 1;
+    }
 
-@keyframes zoom{
-from{transform:scale(0.5);opacity:0;}
-to{transform:scale(1);opacity:1;}
-}
+    h1 {
+      font-family: 'Dancing Script', cursive;
+      text-align: center;
+      color: #ff3385;
+      margin-bottom: 15px;
+      font-size: 28px;
+    }
 
-</style>
+    p {
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .signature {
+      font-family: 'Dancing Script', cursive;
+      text-align: right;
+      font-size: 22px;
+      margin-top: 20px;
+      color: #ff4d94;
+    }
+
+    /* Corações */
+    .heart {
+      position: absolute;
+      font-size: 30px;
+      animation: subir 4s linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes subir {
+      from {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(-300px);
+        opacity: 0;
+      }
+    }
+
+  </style>
 </head>
-
 <body>
 
-<h1 id="titulo">Foto raba dinovo??</h1>
+  <div class="envelope" id="envelope">
+    <div class="flap"></div>
 
-<button id="sim" onclick="ir()">Sim</button>
-<button id="nao" onclick="nao()">Não</button>
+    <div class="letter">
+      <h1>Davi...</h1>
+      <p>Eu sei que menti pra você e para mim mesmo..</p>
+      <p>Meu objetivo como seu namorado sempre foi te dar a melhor sensação, mas eu menti e depois continuei como se nada fosse vir à tona.</p>
+      <p>Você é a pessoa mais importante da minha vida. Sua voz salva meus dias e eu não quero nunca mais te ver triste por minha causa.</p>
+      <p>Me perdoa, por favor? Eu prometo fazer de tudo para você voltar a confiar em mim e consertar isso.</p>
+      <p>Eu só quero você, passar a vida toda ao seu lado...</p>
 
-<div id="frases"></div>
+      <div class="signature">
+        Te amo mais que tudo,<br> Amor da sua vida, <br> Pedro ❤️
+      </div>
+    </div>
+  </div>
 
-<div id="anuncio">
-Nao tem como escapar, aperte em sim e aceite<br><br>
-(é so brincadeira ta? te amo muito)<br><br>
-</div>
+  <script>
+    const envelope = document.getElementById('envelope');
 
-<script>
+    envelope.addEventListener('click', () => {
+      envelope.classList.toggle('open');
 
-let tamanho = 22
-let cliques = 0
-let indiceMensagem = 0
+      for (let i = 0; i < 10; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.innerText = ['❤️','💖','💕'][Math.floor(Math.random()*3)];
 
-const mensagens = [
-"Não adianta negar...",
-"Mande",
-"Aceitaaa",
-"Não correeeeee",
-"Vai simm",
-"Eu queroo",
-"Sim",
-"Yes",
-"Si",
-"No adianta correr",
-"vai ter q mandarr",
-]
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.bottom = '0';
 
-function ir(){
-window.location.href="https://i.pinimg.com/736x/ba/db/74/badb74e6bf6c22cab8c7ce38c3a83eff.jpg"
-}
+        document.body.appendChild(heart);
 
-function nao(){
-
-cliques++
-
-if(cliques >= 20){
-
-document.getElementById("nao").style.display="none"
-document.getElementById("anuncio").style.display="flex"
-
-/* depois de 12s some anuncio */
-
-setTimeout(()=>{
-
-document.getElementById("anuncio").style.display="none"
-document.getElementById("titulo").style.display="none"
-document.getElementById("frases").style.display="none"
-
-/* deixa o SIM gigante */
-
-let sim=document.getElementById("sim")
-
-sim.style.position="fixed"
-sim.style.top="0"
-sim.style.left="0"
-sim.style.width="100%"
-sim.style.height="100%"
-sim.style.fontSize="80px"
-
-},12000)
-
-return
-}
-
-let botao=document.getElementById("nao")
-
-let x=Math.random()*(window.innerWidth-120)
-let y=Math.random()*(window.innerHeight-60)
-
-botao.style.left=x+"px"
-botao.style.top=y+"px"
-
-/* crescer sim */
-
-tamanho+=15
-let sim=document.getElementById("sim")
-
-sim.style.fontSize=tamanho+"px"
-sim.style.padding=(tamanho/2)+"px "+tamanho+"px"
-
-/* frases */
-
-let frase=document.createElement("div")
-frase.className="frase"
-
-frase.innerText = mensagens[indiceMensagem]
-
-indiceMensagem++
-
-if(indiceMensagem >= mensagens.length){
-indiceMensagem = 0
-}
-
-document.getElementById("frases").appendChild(frase)
-
-}
-
-/* corações */
-
-function criarCoracao(){
-
-let heart=document.createElement("div")
-heart.className="heart"
-heart.innerHTML="💕"
-
-heart.style.left=Math.random()*100+"vw"
-heart.style.fontSize=(15+Math.random()*30)+"px"
-
-document.body.appendChild(heart)
-
-setTimeout(()=>{
-heart.remove()
-},6000)
-
-}
-
-setInterval(criarCoracao,400)
-
-</script>
+        setTimeout(() => heart.remove(), 4000);
+      }
+    });
+  </script>
 
 </body>
 </html>
